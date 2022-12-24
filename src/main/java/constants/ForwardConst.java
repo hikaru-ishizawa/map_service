@@ -27,14 +27,14 @@ public enum ForwardConst {
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
     CMD_SEARCH_OCHANOMIZU("searchNearByOchanomizu"),
-    CMD_SHOW_PRICE("showPrice"),
+    CMD_SHOW_PLACE("showPlace"),
     CMD_SEARCH("search"),
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
     FW_MAP_INDEX("map/index"),
     FW_INDEX("sample/index"),
     FW_SEARCH_OCHANOMIZU("sample/search_near_by_ochanomizu"),
-    FW_SHOW_PRICE("sample/place")
+    FW_SHOW_PLACE("map/place")
     ;
 
     /**

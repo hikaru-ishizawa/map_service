@@ -13,9 +13,11 @@ import javax.servlet.ServletException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import actions.views.PlaceDetailView;
 import actions.views.PlaceView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.MessageConst;
 import constants.PropertyConst;
 
 
@@ -123,5 +125,88 @@ public class MapAction extends ActionBase {
         forward(ForwardConst.FW_MAP_INDEX);
     }
 
+    /**
+     * 施設を表示する
+     * @throws ServletException
+     * @throws IOException
+     */
+    public void showPlace() throws ServletException, IOException {
+
+        List<String> errors = null;
+        PlaceDetailView place = null;
+
+        // 場所ID
+        String placeId  = getRequestParam(AttributeConst.PLACE_ID);
+
+        // APIキー
+        String apiKey = getContextScope(PropertyConst.API_KEY);
+
+        String urlString = "https://maps.googleapis.com/maps/api/place/details/json?key="
+                + apiKey
+                + "&place_id="
+                + placeId;
+
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            //  // リクエストメソッドの設定
+            con.setRequestMethod("GET");
+            // リクエストヘッダーに日本語を設定
+            con.setRequestProperty("Accept-Language", "ja,en-US;q=0.8,en;q=0.6");
+            con.connect(); // URL接続
+
+            // URLに接続した結果をBufferedReaderのインスタンスに代入する
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+            String jsonResult = "";
+            String tmp = "";
+
+            while ((tmp = in.readLine()) != null) {
+                jsonResult += tmp;
+            }
+
+            in.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(jsonResult);
+            JsonNode result = root.get("result");
+            if (root.has("error_message")) {
+                // WebサービスAPIの実行結果にエラーメッセージが存在する場合
+                errors = new ArrayList<String>();
+                errors.add(root.get("error_message").asText());
+
+            } else if (result == null){
+                // 該当データが見つからなかった場合
+                errors = new ArrayList<String>();
+                errors.add(MessageConst.E_NODATA.getMessage());
+            }else {
+                // WebサービスAPIの実行結果にエラーメッセージが存在しない場合
+
+                JsonNode geometryLocation = result.get("geometry").get("location");
+
+                place = new PlaceDetailView(
+                        result.get("place_id").asText(),
+                        result.get("name").asText(),
+                        geometryLocation.get("lat").asText(),
+                        geometryLocation.get("lng").asText(),
+                        result.get("formatted_address").asText(),
+                        result.get("url").asText()
+                        );
+
+            }
+
+            con.disconnect();
+         }catch(Exception e) {
+
+            e.printStackTrace();
+            errors = new ArrayList<String>();
+            errors.add(e.getMessage());
+         }
+
+        putRequestScope(AttributeConst.ERR, errors);
+        putRequestScope(AttributeConst.PLACE, place);
+
+        forward(ForwardConst.FW_SHOW_PLACE);
+    }
 
 }

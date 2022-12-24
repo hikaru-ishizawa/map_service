@@ -6,6 +6,7 @@
 <c:set var="actMap" value="${ForwardConst.ACT_MAP.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commSearch" value="${ForwardConst.CMD_SEARCH.getValue()}" />
+<c:set var="commShow" value="${ForwardConst.CMD_SHOW_PLACE.getValue()}" />
 <c:import url="../layout/app.jsp">
     <c:param name="content">
 
@@ -50,26 +51,42 @@
 
                     //テーブルデータを配列化
                     var mytable = document.getElementById("tbl");
-                    console.log(mytable);
-                    console.log(mytable.rows);
+                    //console.log(mytable);
+                    //console.log(mytable.rows);
 
                     let markerData=[];
 
                     for (let row of mytable.rows) {
-                      console.log(row.innerText);
+                      //console.log(row.innerText);
                       markerData.push(row.innerText.split('\t'))
                     }
-                    console.log(markerData);
+                    //console.log(markerData);
 
                     var marker = [];
                     for (var i = 1; i < markerData.length; i++) {
                         markerLatLng = new google.maps.LatLng(markerData[i][2], markerData[i][3]); // 緯度経度のデータ作成
                         marker[i] = new google.maps.Marker({ // マーカーの追加
                          position: markerLatLng, // マーカーを立てる位置を指定
-                            map: map // マーカーを立てる地図を指定
-                       });
+                         map: map // マーカーを立てる地図を指定
+                        });
                         marker[i].setMap(map);
                     }
+                    //現在地の緯度経度を中心にマップに円を描く
+                    //マーカーのサイズを検索範囲に合わせて可変にしたいがやり方が分からないため後回し
+                    var rad = document.getElementById('radius').value;
+                    var circleOptions = {
+                        map: map,
+                        //center: new google.maps.LatLng(mapOptions.center), ググった内容のまま
+                        center: mapOptions.center,
+                        radius: 100,
+                        strokeColor: "#009933",
+                        strokeOpacity: 1,
+                        strokeWeight: 1,
+                        fillColor: "#00ffcc",
+                        fillOpacity: 0.35
+                    };
+                    circle = new google.maps.Circle(circleOptions);
+                    console.log(rad);
 
                 }
                 // 位置情報取得が失敗したときに実行される関数
@@ -105,24 +122,29 @@
         <p>
             検索ワード：
             <input type=text name="keyword">
-            検索範囲(m)：
-            <input type=number name="radius">
-
+            <br>
+            検索範囲　半径
+            <input type=text id="radius" name="radius" style="width:100px;">
+            メートル以内：
+            <br>
             <button type="submit">検索</button>
 
         </p>
     </form>
 
-    <%
-    String result_keyword = request.getParameter("keyword");
-    String result_radius = request.getParameter("radius");
 
-    if (result_keyword == null || result_keyword == "") {
-        out.println("検索値：検索ワードを入力してください");
-    } else {
-        out.println("検索値：半径"+result_radius+"m以内の"+result_keyword);
-    }
-    %>
+    <div id="java">
+        <%
+        String result_keyword = request.getParameter("keyword");
+        String result_radius = request.getParameter("radius");
+
+        if (result_keyword == null || result_keyword == "") {
+            out.println("検索値：検索ワードを入力してください");
+        } else {
+            out.println("検索値：半径"+result_radius+"m以内の"+result_keyword);
+        }
+        %>
+    </div>
 
     <p><検索結果一覧></p>
         <c:if test="${errors != null}">
@@ -148,7 +170,7 @@
                 <c:forEach var="place" items="${places}" varStatus="status">
                     <tr class="row${status.count % 2}">
                         <td><a
-                            href="<c:url value='?action=${actSamp}&command=${commShow}&placeId=${place.id}' />"><c:out
+                            href="<c:url value='?action=${actMap}&command=${commShow}&placeId=${place.id}' />"><c:out
                                     value="${place.id}" /></a></td>
                         <td><c:out value="${place.name}" /></td>
                         <td><c:out value="${place.lat}" /></td>
@@ -158,7 +180,6 @@
                 </c:forEach>
             </tbody>
         </table>
-
     </c:param>
 
 </c:import>

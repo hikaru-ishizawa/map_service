@@ -18,7 +18,7 @@ public enum AttributeConst {
     ERR("errors"),
 
     // サンプル
-    PRICE_ID("placeId"),
+    PLACE_ID("placeId"),
     PLACE("place"),
     PLACES("places"),
     ;
