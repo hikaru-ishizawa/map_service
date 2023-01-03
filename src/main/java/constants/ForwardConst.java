@@ -11,7 +11,8 @@ public enum ForwardConst {
     ACT_TOP("Top"),
     ACT_AUTH("Auth"),
     ACT_MAP("Map"),
-    ACT_SAMP("Sample"),
+    ACT_USER("User"),
+    ACT_BOOKMARK("Bookmark"),
 
     //command
     CMD("command"),
@@ -26,15 +27,22 @@ public enum ForwardConst {
     CMD_EDIT("edit"),
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
-    CMD_SEARCH_OCHANOMIZU("searchNearByOchanomizu"),
     CMD_SHOW_PLACE("showPlace"),
     CMD_SEARCH("search"),
     //jsp
     FW_ERR_UNKNOWN("error/unknown"),
     FW_MAP_INDEX("map/index"),
-    FW_INDEX("sample/index"),
-    FW_SEARCH_OCHANOMIZU("sample/search_near_by_ochanomizu"),
-    FW_SHOW_PLACE("map/place")
+    FW_SHOW_PLACE("map/place"),
+    FW_LOGIN("login/login"),
+
+    FW_USER_INDEX("users/index"),
+    FW_USER_NEW("users/new"),
+    FW_USER_SHOW("users/show"),
+
+    FW_USER_NEW_GUEST("users/newGuest"),
+
+    FW_BOOKMARK_INDEX("bookmarks/index"),
+    FW_BOOKMARK_SHOW("bookmarks/show")
     ;
 
     /**

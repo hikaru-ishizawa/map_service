@@ -21,6 +21,10 @@ public enum MessageConst {
     E_NODATA("該当データがありません。"),
 
     //バリデーション
+    E_NONAME("ユーザー名を入力してください。"),
+    E_NOPASSWORD("パスワードを入力してください。"),
+    E_USER_NAME_EXIST("入力されたユーザー名は既に存在しています。"),
+    B_BOOKMARK_EXIST("ブックマーク済みです"),
     ;
 
 

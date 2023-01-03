@@ -3,11 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example</groupId>
-  <artifactId>daily_report_system</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>daily_report_system</name>
+  <name>map_service</name>
   <url>https://techacademy.jp/java-bootcamp</url>
 
   <properties>
@@ -59,4 +58,5 @@
   <build>
     <finalName>map_service</finalName>
   </build>
+  <artifactId>map_service</artifactId>
 </project>

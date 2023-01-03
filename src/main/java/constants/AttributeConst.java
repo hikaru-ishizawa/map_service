@@ -17,11 +17,48 @@ public enum AttributeConst {
     TOKEN("_token"),
     ERR("errors"),
 
+    //ログイン中のユーザー
+    LOGIN_USER("login_user"),
+
+    //ログイン画面
+    LOGIN_ERR("loginError"),
+
+    //ユーザー管理
+    USER("user"),
+    USERS("users"),
+    USER_COUNT("users_count"),
+    USER_ID("id"),
+    USER_PASS("password"),
+    USER_NAME("name"),
+    USER_ADMIN_FLG("admin_flag"),
+
+    //ブックマーク関係
+    BOOKMARK("bookmark"),
+    BOOKMARKS("bookmarks"),
+    BOOKMARK_COUNT("bookmarks_count"),
+    BOOKMARK_REGISTER_DATE("bookmark_register_date"),
+
+    //管理者フラグ
+    ROLE_ADMIN(1),
+    ROLE_GENERAL(0),
+
+    //削除フラグ
+    DEL_FLAG_TRUE(1),
+    DEL_FLAG_FALSE(0),
+
+    //半径の初期値
+    RADIUS("radius"),
+
     // サンプル
     PLACE_ID("placeId"),
     PLACE("place"),
     PLACES("places"),
+    PLACE_NAME("place_name"),
+    PLACE_LAT("place_lat"),
+    PLACE_LNG("place_lng"),
+    PLACE_ADDRESS("place_address"),
     ;
+
     private final String text;
     private final Integer i;
 

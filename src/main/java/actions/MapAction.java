@@ -34,7 +34,16 @@ public class MapAction extends ActionBase {
 
     public void index() throws ServletException, IOException {
 
+        //リクエストスコープに半径100を設定　サークル描画用
+        //putRequestScope(AttributeConst.RADIUS, 100);
+
+        String flush = getSessionScope(AttributeConst.FLUSH);
+        if (flush != null) {
+            putRequestScope(AttributeConst.FLUSH, flush);
+            removeSessionScope(AttributeConst.FLUSH);
+        }
         forward(ForwardConst.FW_MAP_INDEX);
+
     }
 
     public void search() throws ServletException, IOException {
@@ -45,7 +54,7 @@ public class MapAction extends ActionBase {
         // APIキー
         String apiKey = getContextScope(PropertyConst.API_KEY);
 
-        // ロケーション（緯度、経度）※"35.6987769,139.76471"はお茶の水周辺の座標
+        // ロケーション（緯度、経度）
         String lat = request.getParameter("lat");
         String lng = request.getParameter("lng");
         String location = lat + "," + lng;
@@ -121,6 +130,13 @@ public class MapAction extends ActionBase {
         }
         putRequestScope(AttributeConst.ERR, errors);
         putRequestScope(AttributeConst.PLACES, places);
+        putRequestScope(AttributeConst.RADIUS, radius);//サークル描画用
+
+        String flush = getSessionScope(AttributeConst.FLUSH);
+        if (flush != null) {
+            putRequestScope(AttributeConst.FLUSH, flush);
+            removeSessionScope(AttributeConst.FLUSH);
+        }
 
         forward(ForwardConst.FW_MAP_INDEX);
     }
