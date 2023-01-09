@@ -22,26 +22,32 @@
                 <tr>
                     <th>権限</th>
                     <td><c:choose>
-                            <c:when test="${user.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">管理者</c:when>
+                            <c:when
+                                test="${user.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">管理者</c:when>
                             <c:otherwise>一般</c:otherwise>
                         </c:choose></td>
                 </tr>
                 <tr>
                     <th>登録日時</th>
-                    <fmt:parseDate value="${user.createdAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
-                    <td><fmt:formatDate value="${createDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                    <fmt:parseDate value="${user.createdAt}"
+                        pattern="yyyy-MM-dd'T'HH:mm:ss" var="createDay" type="date" />
+                    <td><fmt:formatDate value="${createDay}"
+                            pattern="yyyy-MM-dd HH:mm:ss" /></td>
                 </tr>
                 <tr>
                     <th>更新日時</th>
-                    <fmt:parseDate value="${user.updatedAt}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="updateDay" type="date" />
-                    <td><fmt:formatDate value="${updateDay}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                    <fmt:parseDate value="${user.updatedAt}"
+                        pattern="yyyy-MM-dd'T'HH:mm:ss" var="updateDay" type="date" />
+                    <td><fmt:formatDate value="${updateDay}"
+                            pattern="yyyy-MM-dd HH:mm:ss" /></td>
                 </tr>
             </tbody>
         </table>
 
-        <p>
-            <a href="<c:url value='?action=${actUser}&command=${commEdit}&name=${user.name}' />">このユーザー情報を編集する</a>
-        </p>
+        <%-- <p>
+            <a
+                href="<c:url value='?action=${actUser}&command=${commEdit}&name=${user.name}' />">このユーザー情報を編集する</a>
+        </p> --%>
 
         <p>
             <a href="<c:url value='?action=${actUser}&command=${commIdx}' />">一覧に戻る</a>

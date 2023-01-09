@@ -19,12 +19,13 @@ public class BookMarkConverter {
     public static Bookmark toModel(BookMarkView bv) {
 
         return new Bookmark(
+                bv.getId(),
                 bv.getPlaceId(),
                 bv.getPlaceName(),
                 bv.getLat(),
                 bv.getLng(),
                 bv.getAddress(),
-                bv.getUserName(),
+                UserConverter.toModel(bv.getUserName()), //UserView→User型へ型変換
                 bv.getCreatedAt()
                 );
     }
@@ -41,12 +42,13 @@ public class BookMarkConverter {
         }
 
         return new BookMarkView(
+                b.getId(),
                 b.getPlaceId(),
                 b.getPlaceName(),
                 b.getLat(),
                 b.getLng(),
                 b.getAddress(),
-                b.getUserName(),
+                UserConverter.toView(b.getUserName()),
                 b.getCreatedAt()
                 );
 
@@ -73,12 +75,13 @@ public class BookMarkConverter {
      * @param ev Viewモデル(コピー元)
      */
     public static void copyViewToModel(Bookmark b, BookMarkView bv) {
+        b.setId(bv.getId());
         b.setPlaceId(bv.getPlaceId());
         b.setPlaceName(bv.getPlaceName());
         b.setLat(bv.getLat());
         b.setLng(bv.getLng());
         b.setAddress(bv.getAddress());
-        b.setUserName(bv.getUserName());
+        b.setUserName(UserConverter.toModel(bv.getUserName()));
         b.setCreatedAt(bv.getCreatedAt());
 
     }

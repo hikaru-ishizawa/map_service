@@ -9,6 +9,7 @@
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
 <c:set var="actUser" value="${ForwardConst.ACT_USER.getValue()}" />
 <c:set var="commShowLogin" value="${ForwardConst.CMD_SHOW_LOGIN.getValue()}" />
+<c:set var="actBookMark" value="${ForwardConst.ACT_BOOKMARK.getValue()}" />
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -28,6 +29,7 @@
                 <c:if test="${sessionScope.login_user != null}">
                     <c:if test="${sessionScope.login_user.adminFlag == AttributeConst.ROLE_ADMIN.getIntegerValue()}">
                         <a href="<c:url value='?action=${actUser}&command=${commIdx}' />">&nbsp;&nbsp;ユーザー管理</a>&nbsp;
+                        <a href="<c:url value='?action=${actBookMark}&command=${commIdx}' />">&nbsp;&nbsp;ブックマーク</a>&nbsp;
                     </c:if>
                 </c:if>
             </div>
@@ -48,6 +50,7 @@
         </div>
         <div id="content">${param.content}</div>
         <div id="footer"> </div>
+
     </div>
 </body>
 </html>

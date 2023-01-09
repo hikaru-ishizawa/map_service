@@ -73,9 +73,12 @@ public class UserService extends ServiceBase {
      * @param name
      * @return 取得データのインスタンス
      */
+//    public UserView findOne(String name) {
+//        User u = findOneInternal(name);
+//        return UserConverter.toView(u);
+//    }
     public UserView findOne(String name) {
-        User u = findOneInternal(name);
-        return UserConverter.toView(u);
+        return UserConverter.toView(findOneInternal(name));
     }
 
     /**

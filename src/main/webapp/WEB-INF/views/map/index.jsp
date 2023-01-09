@@ -183,6 +183,7 @@
                                 <input type="hidden" id="placeLat" name="placeLat" value="${place.lat}" />
                                 <input type="hidden" id="placeLng" name="placeLng" value="${place.lng}" />
                                 <input type="hidden" id="placeAddress" name="placeAddress" value="${place.vicinity}" />
+                                <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
 
                                 <button>登録</button>
                                 </form>

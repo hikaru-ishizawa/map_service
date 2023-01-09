@@ -29,13 +29,15 @@ public interface JpaConst {
     String USER_COL_DELETE_FLAG = "delete_flag"; //削除フラグ
 
     //ブックマークテーブルカラム
+    String BOOKMARK_COL_ID = "id"; //ID
     String BOOKMARK_COL_PLACE_ID = "place_id"; //Place ID
+    String BOOKMARK_COL_USER_NAME = "user_name"; //ユーザー名
+    String BOOKMARK_COL_CREATED_AT = "created_at"; //登録日時
     String BOOKMARK_COL_PLACE_NAME = "place_name"; //場所名
     String BOOKMARK_COL_LAT = "latitude"; //緯度
     String BOOKMARK_COL_LNG = "longtitude"; //経度
     String BOOKMARK_COL_ADDRESS = "adress"; //付近の情報
-    String BOOKMARK_COL_USER_NAME = "user_name"; //ユーザー名
-    String BOOKMARK_COL_CREATED_AT = "created_at"; //登録日時
+
 
     int ROLE_ADMIN = 1; //管理者権限ON(管理者)
     int ROLE_GENERAL = 0; //管理者権限OFF(一般)
@@ -50,6 +52,8 @@ public interface JpaConst {
     String JPQL_PARM_PASSWORD = "password"; //パスワード
     String JPQL_PARM_NAME = "name"; //ユーザー名
     String JPQL_PARM_PLACE_ID = "placeId"; //場所ID
+    String JPQL_PARM_USER = "user"; //ユーザー
+    String JPQL_PARM_BOOKMARK_ID = "id";
 
     //NamedQueryの nameとquery
     //全てのユーザーをidの降順に取得する
@@ -68,7 +72,7 @@ public interface JpaConst {
     String Q_USER_COUNT_REGISTERED_BY_NAME = ENTITY_USER + ".countRegisteredByName";
     String Q_USER_COUNT_REGISTERED_BY_NAME_DEF = "SELECT COUNT(u) FROM User AS u WHERE u.name = :" + JPQL_PARM_NAME;
 
-    //全てのブックマークを作成日順に取得する
+    //全てのブックマークを登録日順に取得する
     String Q_BOOKMARK_GET_ALL = ENTITY_BOOKMARK + ".getAll"; //bookmark
     String Q_BOOKMARK_GET_ALL_DEF = "SELECT b FROM Bookmark AS b ORDER BY b.createdAt DESC"; //query
 
@@ -79,5 +83,13 @@ public interface JpaConst {
     //全てのユーザーの件数を取得する
     String Q_BOOKMARK_COUNT = ENTITY_BOOKMARK + ".count";
     String Q_BOOKMARK_COUNT_DEF = "SELECT COUNT(b) FROM Bookmark AS b";
+
+    //指定したユーザーが登録した日報を全件登録日の降順で取得する
+    String Q_BOOKMARK_GET_ALL_MINE = ENTITY_BOOKMARK + ".getAllMine";
+    String Q_BOOKMARK_GET_ALL_MINE_DEF = "SELECT b FROM Bookmark AS b WHERE b.userName = :" + JPQL_PARM_USER + " ORDER BY b.createdAt DESC";
+
+    //指定したユーザーが登録した日報の件数を取得する
+    String Q_BOOKMARK_COUNT_ALL_MINE = ENTITY_BOOKMARK + ".countAllMine";
+    String Q_BOOKMARK_COUNT_ALL_MINE_DEF = "SELECT COUNT(b) FROM Bookmark AS b WHERE b.userName = :" + JPQL_PARM_USER;
 
 }

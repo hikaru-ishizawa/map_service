@@ -135,20 +135,47 @@ public class UserAction extends ActionBase {
      */
     public void show() throws ServletException, IOException {
 
-        //ユーザー名を条件に従業員データを取得する
-        UserView uv = service.findOne(getRequestParam(AttributeConst.USER_NAME));
+        //管理者かどうかのチェック //追記
+        if (checkAdmin()) {
 
-        if (uv == null || uv.getDeleteFlag() == AttributeConst.DEL_FLAG_TRUE.getIntegerValue()) {
+            //ユーザー名を条件にユーザーデータを取得する
+            UserView uv = service.findOne(getRequestParam(AttributeConst.USER_NAME));
 
-            //データが取得できなかった、または論理削除されている場合はエラー画面を表示
+            if (uv == null) {
+
+                //データが取得できなかった場合はエラー画面を表示
+                forward(ForwardConst.FW_ERR_UNKNOWN);
+                return;
+            }
+                putRequestScope(AttributeConst.USER, uv); //取得したユーザー情報
+
+                //詳細画面を表示
+                forward(ForwardConst.FW_USER_SHOW);
+        }
+    }
+
+    /**
+     * ログイン中のユーザーが管理者かどうかチェックし、管理者でなければエラー画面を表示
+     * true: 管理者 false: 管理者ではない
+     * @throws ServletException
+     * @throws IOException
+     */
+    private boolean checkAdmin() throws ServletException, IOException {
+
+        //セッションからログイン中のユーザー情報を取得
+        UserView uv = (UserView) getSessionScope(AttributeConst.LOGIN_USER);
+
+        //管理者でなければエラー画面を表示
+        if (uv.getAdminFlag() != AttributeConst.ROLE_ADMIN.getIntegerValue()) {
+
             forward(ForwardConst.FW_ERR_UNKNOWN);
-            return;
+            return false;
+
+        } else {
+
+            return true;
         }
 
-        putRequestScope(AttributeConst.USER, uv); //取得したユーザー情報
-
-        //詳細画面を表示
-        forward(ForwardConst.FW_USER_SHOW);
     }
 
 }

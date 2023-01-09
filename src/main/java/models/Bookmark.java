@@ -4,12 +4,15 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import actions.views.UserView;
 import constants.JpaConst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +31,12 @@ import lombok.Setter;
     @NamedQuery(
             name = JpaConst.Q_BOOKMARK_COUNT_REGISTERED_BY_ID,
             query = JpaConst.Q_BOOKMARK_COUNT_REGISTERED_BY_ID_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_BOOKMARK_GET_ALL_MINE,
+            query = JpaConst.Q_BOOKMARK_GET_ALL_MINE_DEF),
+    @NamedQuery(
+            name = JpaConst.Q_BOOKMARK_COUNT_ALL_MINE,
+            query = JpaConst.Q_BOOKMARK_COUNT_ALL_MINE_DEF)
 
 })
 
@@ -39,12 +48,19 @@ import lombok.Setter;
 public class Bookmark {
 
     /**
-     * Place id
+     * id
      */
     @Id
-    @Column(name = JpaConst.BOOKMARK_COL_PLACE_ID, nullable = false, unique = true)
-    private String placeId;
+    @Column(name = JpaConst.BOOKMARK_COL_ID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
+    /**
+     * Place id
+     */
+    @Column(name = JpaConst.BOOKMARK_COL_PLACE_ID, nullable = false, unique = true)
+
+    private String placeId;
     /**
      *場所名
      */
@@ -72,8 +88,9 @@ public class Bookmark {
     /**
      * 登録したユーザ名
      */
-    @Column(name = JpaConst.BOOKMARK_COL_USER_NAME, nullable = false)
-    private UserView userName;
+    @ManyToOne
+    @JoinColumn(name = JpaConst.BOOKMARK_COL_USER_NAME, nullable = false)
+    private User userName;
 
     /**
      *登録日時

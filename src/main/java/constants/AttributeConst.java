@@ -37,6 +37,7 @@ public enum AttributeConst {
     BOOKMARKS("bookmarks"),
     BOOKMARK_COUNT("bookmarks_count"),
     BOOKMARK_REGISTER_DATE("bookmark_register_date"),
+    BOOKMARK_ID("id"),
 
     //管理者フラグ
     ROLE_ADMIN(1),
@@ -53,10 +54,10 @@ public enum AttributeConst {
     PLACE_ID("placeId"),
     PLACE("place"),
     PLACES("places"),
-    PLACE_NAME("place_name"),
-    PLACE_LAT("place_lat"),
-    PLACE_LNG("place_lng"),
-    PLACE_ADDRESS("place_address"),
+    PLACE_NAME("placeName"),
+    PLACE_LAT("placeLat"),
+    PLACE_LNG("placeLng"),
+    PLACE_ADDRESS("placeAddress"),
     ;
 
     private final String text;

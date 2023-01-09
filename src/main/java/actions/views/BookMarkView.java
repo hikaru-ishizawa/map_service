@@ -17,6 +17,11 @@ import lombok.Setter;
 @AllArgsConstructor //全てのクラスフィールドを引数にもつ引数ありコンストラクタを自動生成する(Lombok)
 public class BookMarkView {
     /**
+     * id
+     */
+    private Integer id;
+
+    /**
      * 場所id
      */
     private String placeId;

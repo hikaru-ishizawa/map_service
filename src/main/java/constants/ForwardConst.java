@@ -12,7 +12,7 @@ public enum ForwardConst {
     ACT_AUTH("Auth"),
     ACT_MAP("Map"),
     ACT_USER("User"),
-    ACT_BOOKMARK("Bookmark"),
+    ACT_BOOKMARK("BookMark"),
 
     //command
     CMD("command"),

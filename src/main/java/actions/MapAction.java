@@ -138,6 +138,7 @@ public class MapAction extends ActionBase {
             removeSessionScope(AttributeConst.FLUSH);
         }
 
+        putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
         forward(ForwardConst.FW_MAP_INDEX);
     }
 
