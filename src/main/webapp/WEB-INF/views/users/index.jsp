@@ -42,7 +42,7 @@
                                     （削除済み）
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="<c:url value='?action=${actUser}&command=${commShow}&name=${user.name}' />">詳細を見る</a>
+                                    <a href="<c:url value='?action=${actUser}&command=${commShow}&id=${user.id}' />">詳細を見る</a>
                                 </c:otherwise>
                             </c:choose>
                         </td>

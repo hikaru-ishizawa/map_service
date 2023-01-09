@@ -77,8 +77,8 @@ public class UserService extends ServiceBase {
 //        User u = findOneInternal(name);
 //        return UserConverter.toView(u);
 //    }
-    public UserView findOne(String name) {
-        return UserConverter.toView(findOneInternal(name));
+    public UserView findOne(int id) {
+        return UserConverter.toView(findOneInternal(id));
     }
 
     /**
@@ -133,10 +133,10 @@ public class UserService extends ServiceBase {
     public List<String> update(UserView uv, String pepper) {
 
         //ユーザー名を条件に登録済みのユーザー情報を取得する
-        UserView savedUser = findOne(uv.getName());
+        UserView savedUser = findOne(uv.getId());
 
         boolean validateName = false;
-        if (!savedUser.getName().equals(uv.getName())) {
+        if (!savedUser.getId().equals(uv.getId())) {
             //ユーザー名を更新する場合
 
             //ユーザー名についてのバリデーションを行う
@@ -180,10 +180,10 @@ public class UserService extends ServiceBase {
      * ユーザー名を条件に従業員データを論理削除する
      * @param name
      */
-    public void destroy(String name) {
+    public void destroy(int id) {
 
         //idを条件に登録済みのユーザー情報を取得する
-        UserView savedUser = findOne(name);
+        UserView savedUser = findOne(id);
 
         //更新日時に現在時刻を設定する
         LocalDateTime today = LocalDateTime.now();
@@ -226,8 +226,8 @@ public class UserService extends ServiceBase {
      * @param name
      * @return 取得データのインスタンス
      */
-    private User findOneInternal(String name) {
-        User u = em.find(User.class, name);
+    private User findOneInternal(int id) {
+        User u = em.find(User.class, id);
 
         return u;
     }
@@ -252,7 +252,7 @@ public class UserService extends ServiceBase {
     private void update(UserView uv) {
 
         em.getTransaction().begin();
-        User u = findOneInternal(uv.getName());
+        User u = findOneInternal(uv.getId());
         UserConverter.copyViewToModel(u, uv);
         em.getTransaction().commit();
 

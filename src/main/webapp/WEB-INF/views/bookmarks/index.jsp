@@ -16,7 +16,7 @@
                 <c:out value="${flush}"></c:out>
             </div>
         </c:if>
-        <h2>ブックマーク</h2>
+        <h2>ブックマーク一覧</h2>
         <table id="bookmark_list">
             <tbody>
                 <tr>

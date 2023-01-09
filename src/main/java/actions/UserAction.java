@@ -139,7 +139,7 @@ public class UserAction extends ActionBase {
         if (checkAdmin()) {
 
             //ユーザー名を条件にユーザーデータを取得する
-            UserView uv = service.findOne(getRequestParam(AttributeConst.USER_NAME));
+            UserView uv = service.findOne(toNumber(getRequestParam(AttributeConst.USER_ID)));
 
             if (uv == null) {
 
